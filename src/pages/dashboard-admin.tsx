@@ -5,7 +5,7 @@ import Salle from '../components/salle';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface SalleData {
   id: string;
@@ -23,7 +23,7 @@ function DashboardAdmin(){
    const [salles, setSalles] = useState<SalleData[]>([]);
 
    useEffect(() => {
-    fetch(`${API_URL}/salles`)
+    fetch(`${API_URL}/rooms`)
       .then((res) => res.json())
       .then((data) => setSalles(data))
       .catch((err) => console.error('Erreur lors du chargement des salles', err));
