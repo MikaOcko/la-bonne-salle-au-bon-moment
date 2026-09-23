@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createSalle } from '../services/salle.service';
+import { createRoom } from '../services/salle.service';
 import './creerSalle.css';
 import Button from '../components/button';
 
@@ -47,7 +47,7 @@ function CreerSalle() {
             ? data.material.split(',').map((m) => m.trim())
             : [];
 
-        await createSalle({ ...data, material });
+        await createRoom({ ...data, material });
         reset();
 
         setMessage("Salle ajoutée");

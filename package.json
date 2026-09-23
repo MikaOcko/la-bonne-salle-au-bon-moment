@@ -1,5 +1,5 @@
 {
-  "name": "la-bonne-salle-au-bon-moment",
+  "name": "la-bonne-salle-front",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@fullcalendar/react": "^7.0.2",
     "@hookform/resolvers": "^5.9.1",
+    "dotenv": "^18.0.2",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.86.0",
