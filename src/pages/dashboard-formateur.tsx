@@ -33,33 +33,33 @@ function DashboardFormateur() {
 
   return (
     <>
-      <header>
-        <div>
-          <Button description='se deconnecter' onClick={() => navigate('/')}/>
-        </div>
-      </header>
+		<header>
+			<div>
+			<Button description='se deconnecter' onClick={() => navigate('/')}/>
+			</div>
+		</header>
 
-      <div className="p-6">
-        <h1>
-          Dashboard Formateur
-        </h1>
+		<div className="p-6">
+			<h1>
+				Dashboard Formateur
+			</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          	{rooms.map((room, index) => (
-						<div key={room.id} className={`div${index + 1}`}>
-							<Salle room={room}/>
-						</div>
-			))}
-        </div>
-      </div>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+				{rooms.map((room) => (
+					<div key={room._id}>
+						<Salle room={room}/>
+					</div>
+				))}
+			</div>
+		</div>
 
-      <footer>
-        <div>
-          <Button description='effectuer une reservation' onClick={() => navigate('/creerReservation')} />
-          <Button description='modifier une reservation' onClick={() => navigate('/modifierReservation')} />
-          <Button description='supprimer une reservation' onClick={() => navigate('/listeReservations')} />
-        </div>
-      </footer>
+		<footer>
+			<div>
+				<Button description='effectuer une reservation' onClick={() => navigate('/creerReservation')} />
+				<Button description='modifier une reservation' onClick={() => navigate('/modifierReservation')} />
+				<Button description='supprimer une reservation' onClick={() => navigate('/listeReservations')} />
+			</div>
+		</footer>
     </>
   );
 }

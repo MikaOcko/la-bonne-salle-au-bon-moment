@@ -1,5 +1,5 @@
 export interface  RoomType {
-  id: string;
+  _id: string;
   label: string;
   capacity: number;
   site: string;

@@ -5,6 +5,7 @@ import Salle from '../components/salle';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { type RoomType } from '../types/room.type';
+import { deleteRoom } from '../services/salle.service';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,12 +14,14 @@ function DashboardAdmin(){
     const navigate = useNavigate();
     const [rooms, setRooms] = useState<RoomType[]>([]);
 
+	// getSalles() ?
     useEffect(() => {
         fetch(`${API_URL}/rooms`)
           .then((res) => res.json())
           .then((data) => setRooms(data))
           .catch((err) => console.error('Erreur lors du chargement des salles', err));
     }, []);
+	
   
     return (
 		<>  
@@ -29,9 +32,10 @@ function DashboardAdmin(){
 			</header>
 			<main>
 				<div className='grid'>
-					{rooms.map((room, index) => (
-						<div key={room.id} className={`div${index + 1}`}>
+					{rooms.map((room) => (
+						<div key={room._id}>
 							<Salle room={room}/>
+							<button type="button" onClick={() => deleteRoom(room._id)}>Supprimer</button>
 						</div>
 					))}
 				</div>
