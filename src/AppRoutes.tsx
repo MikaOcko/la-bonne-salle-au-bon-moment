@@ -5,7 +5,7 @@ import DashboardAdmin from "./pages/dashboard-admin";
 import DashboardFormateur from "./pages/dashboard-formateur";
 import CreateUserForm from "./pages/createUser";
 import CreerSalle from "./pages/creerSalle";
-import Agenda from "./pages/agenda"
+import Agenda from "./pages/agenda";
 import CreerReservation from "./pages/creerReservation";
 import ModifierReservation from "./pages/modifierReservation"; // AJOUT
 import ListeReservations from "./pages/listeReservations";
