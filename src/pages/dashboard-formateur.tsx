@@ -4,16 +4,11 @@ import Button from '../components/button';
 import { useEffect, useState } from "react";
 import { getSalles } from "../services/salle.service";
 import { useNavigate } from 'react-router';
+import { type RoomType } from '../types/room.type';
 
-type Salle = {
-  label: string;
-  capacity: string;
-  site: string;
-  floor: number;
-};
-
+// ---------- Logic --------
 function DashboardFormateur() {
-  const [salles, setSalles] = useState<Salle[]>([]);
+  const [salles, setSalles] = useState<RoomType[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

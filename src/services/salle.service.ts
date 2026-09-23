@@ -1,11 +1,14 @@
-// src/services/salle.service.ts
+// ----------- Imports -----------
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function createSalle(salle: object) {
+// ----------- Logic -----------
+
+export async function createSalle(room: object) {
   const response = await fetch(`${API_URL}/rooms`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(salle),
+    body: JSON.stringify(room),
   });
 
   return response.json();

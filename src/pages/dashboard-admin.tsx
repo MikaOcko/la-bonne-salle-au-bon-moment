@@ -4,23 +4,14 @@ import Button from '../components/button';
 import Salle from '../components/salle';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
+import { type RoomType } from '../types/room.type';
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-interface SalleData {
-  id: string;
-  label: string;
-  capacity: number;
-  site: string;
-  building: string;
-  floor: number;
-  material: string[];
-}
 
 //--------- Component ---------
 function DashboardAdmin(){
   const navigate = useNavigate();
-   const [salles, setSalles] = useState<SalleData[]>([]);
+   const [salles, setSalles] = useState<RoomType[]>([]);
 
    useEffect(() => {
     fetch(`${API_URL}/rooms`)
