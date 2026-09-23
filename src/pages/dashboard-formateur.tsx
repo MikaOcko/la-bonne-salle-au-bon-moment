@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { getSalles } from "../services/salle.service";
 import { useNavigate } from 'react-router';
 import { type RoomType } from '../types/room.type';
+import Salle from '../components/salle';
 
-// ---------- Logic --------
+// ---------- Imports --------
 function DashboardFormateur() {
-  const [salles, setSalles] = useState<RoomType[]>([]);
+  const [rooms, setRooms] = useState<RoomType[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ function DashboardFormateur() {
     async function chargerSalles() {
       try {
         const data = await getSalles();
-        setSalles(data);
+        setRooms(data);
       } catch (error) {
         console.error("Erreur :", error);
       } finally {
@@ -44,22 +45,11 @@ function DashboardFormateur() {
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {salles.map((salle) => (
-            <div
-              key={salle.label}
-              className="salle-card"
-            >
-              <h3 className="salle-title">
-                {salle.label}
-              </h3>
-              <p className="salle-info">
-                Numéro : <strong>{salle.floor}</strong>
-              </p>
-              <p className="salle-info">
-                Capacité : <strong>{salle.capacity} personnes</strong>
-              </p>
-            </div>
-          ))}
+          	{rooms.map((room, index) => (
+						<div key={room.id} className={`div${index + 1}`}>
+							<Salle room={room}/>
+						</div>
+			))}
         </div>
       </div>
 
