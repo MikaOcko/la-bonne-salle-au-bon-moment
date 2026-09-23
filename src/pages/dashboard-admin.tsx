@@ -22,6 +22,15 @@ function DashboardAdmin(){
           .catch((err) => console.error('Erreur lors du chargement des salles', err));
     }, []);
 	
+	const handleDeleteRoom = async (id: string) => {
+		try {
+			await deleteRoom(id);
+			// Mettre à jour l’état local : retirer la salle supprimée
+			setRooms((prev) => prev.filter((room) => room._id !== id));
+		} catch (err) {
+			console.error('Erreur lors de la suppression de la salle', err);
+		}
+	};
   
     return (
 		<>  
@@ -35,7 +44,7 @@ function DashboardAdmin(){
 					{rooms.map((room) => (
 						<div key={room._id}>
 							<Salle room={room}/>
-							<button type="button" onClick={() => deleteRoom(room._id)}>Supprimer</button>
+							<button type="button" onClick={() => handleDeleteRoom(room._id)}>Supprimer</button>
 						</div>
 					))}
 				</div>
