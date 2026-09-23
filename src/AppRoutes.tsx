@@ -9,6 +9,7 @@ import Agenda from "./pages/agenda";
 import CreerReservation from "./pages/creerReservation";
 import ModifierReservation from "./pages/modifierReservation"; // AJOUT
 import ListeReservations from "./pages/listeReservations";
+import UpdateRoom from "./pages/salle/updateRoom";
 
 
 //Composant
@@ -24,6 +25,7 @@ function AppRoutes() {
 			<Route path="/creerReservation" element={<CreerReservation/>} />
 			<Route path="/modifierReservation" element={<ModifierReservation/>} /> 
 			<Route path="/listeReservations" element={<ListeReservations/>} />
+			<Route path="/updateRoom/:id" element={<UpdateRoom/>}/>
 		</Routes>
 	);
 }

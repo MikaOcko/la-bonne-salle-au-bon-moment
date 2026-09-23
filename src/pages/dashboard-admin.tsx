@@ -44,7 +44,8 @@ function DashboardAdmin(){
 					{rooms.map((room) => (
 						<div key={room._id}>
 							<Salle room={room}/>
-							<button type="button" onClick={() => handleDeleteRoom(room._id)}>Supprimer</button>
+							<Button description='Supprimer' onClick={() => handleDeleteRoom(room._id)}/>
+							<Button description='Modifier' onClick={() => navigate(`/updateRoom/${room._id}`)}/>
 						</div>
 					))}
 				</div>
