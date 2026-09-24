@@ -36,7 +36,7 @@ function CreerSalle() {
     const navigate = useNavigate();
     // Message display (after click on the submit button)
     const [message, setMessage] = useState<string>("");
-
+     const [errorMessage, setErrorMessage] = useState<string>("");
     // Zod
     const { register, handleSubmit, formState: { errors }, reset } = useForm<CreerSalleFormData>({
         resolver: zodResolver(creerSalleSchema),
@@ -47,10 +47,24 @@ function CreerSalle() {
             ? data.material.split(',').map((m) => m.trim())
             : [];
 
-        await createRoom({ ...data, material });
-        reset();
+        try {
+            await createRoom({ ...data, material });
+            reset();
 
-        setMessage("Salle ajoutée");
+            setErrorMessage("");
+            setMessage("Salle ajoutée");
+
+            setTimeout(() => {
+                navigate("/dashboardAdmin");
+            }, 1000);
+        } catch (error) {
+             // Conserve l'erreur technique dans la console.
+            console.error(error);
+
+            // Message utilisateur en cas d'échec de l'appel API.
+            setErrorMessage("La création de la salle a échoué.");
+        }
+        
     }
 
     return (
@@ -58,7 +72,7 @@ function CreerSalle() {
         
             <header>
                 <div>
-                <Button description="retour" onClick={() => navigate('/DashboardAdmin')} />
+                    <Button description="retour" onClick={() => navigate('/DashboardAdmin')} />
                 </div>
             </header>
             <main>
