@@ -1,8 +1,12 @@
+// ============ Imports ============
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createUser as createUserService } from "../services/user.service";
+import { createUser } from "../services/user.service";
+import { useNavigate } from 'react-router';
+import Button from "../components/button";
 
+// =========== Logic ============
 // Schéma de validation
 const utilisateurSchema = z.object({
   role: z.enum(["Admin", "Formateur"], {
@@ -30,23 +34,31 @@ const utilisateurSchema = z.object({
 type UserForm = z.infer<typeof utilisateurSchema>;
 
 function CreateUserForm() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UserForm>({
-    resolver: zodResolver(utilisateurSchema),
-  });
+	const navigate = useNavigate();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<UserForm>({
+		resolver: zodResolver(utilisateurSchema),
+	});
 
-  // Fonction appelée lors de la validation du formulaire
- 
-  async function onSubmit(data: UserForm) {
-    await createUserService(data);
-    reset();
-}
+	// Fonction appelée lors de la validation du formulaire
+	
+	async function onSubmit(data: UserForm) {
+		await createUser(data);
+		reset();
+	}
 
   return (
+    <>
+		<header>
+            <div>
+                <Button description="retour" onClick={() => navigate('/dashboardAdmin')} />
+            </div>
+        </header>
+    
     <div className="bg-gray-400 p-6 rounded-lg">
       <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -162,6 +174,7 @@ function CreateUserForm() {
 
       </form>
     </div>
+	</>
   );
 }
 

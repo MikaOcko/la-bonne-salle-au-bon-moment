@@ -74,7 +74,7 @@ function CreerSalle() {
         
             <header>
                 <div>
-                    <Button description="retour" onClick={() => navigate('/DashboardAdmin')} />
+                    <Button description="retour" onClick={() => navigate('/dashboardAdmin')} />
                 </div>
             </header>
             <main>
