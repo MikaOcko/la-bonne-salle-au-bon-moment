@@ -24,8 +24,10 @@ const creerSalleSchema = z.object({
     building: z
         .string()
         .min(1, "Le bâtiment doit avoir au minimum 1 caractère."),
-    floor: z.number(),
-    material: z.string().optional(),
+    floor: z
+        .number()
+        .min(0, "L'étage ne peut pas être négatif."),
+    material: z.string(),
 });
 
 type CreerSalleFormData = z.infer<typeof creerSalleSchema>;

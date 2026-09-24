@@ -9,33 +9,33 @@ import Salle from '../components/salle';
 
 // ---------- Imports --------
 function DashboardFormateur() {
-  const [rooms, setRooms] = useState<RoomType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+	const [rooms, setRooms] = useState<RoomType[]>([]);
+	const [loading, setLoading] = useState(true);
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    async function chargerSalles() {
-      try {
-        const data = await getSalles();
-        setRooms(data);
-      } catch (error) {
-        console.error("Erreur :", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    chargerSalles();
-  }, []);
+	useEffect(() => {
+		async function chargerSalles() {
+			try {
+				const data = await getSalles();
+				setRooms(data);
+			} catch (error) {
+				console.error("Erreur :", error);
+			} finally {
+				setLoading(false);
+			}
+		}
+		chargerSalles();
+	}, []);
 
-  if (loading) {
-    return <p>Chargement des salles...</p>;
-  }
+	if (loading) {
+		return <p>Chargement des salles...</p>;
+	}
 
   return (
     <>
 		<header>
 			<div>
-			<Button description='se deconnecter' onClick={() => navigate('/')}/>
+				<Button description='se deconnecter' onClick={() => navigate('/')}/>
 			</div>
 		</header>
 
