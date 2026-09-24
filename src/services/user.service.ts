@@ -1,11 +1,19 @@
-// src/services/salle.service.ts
-export async function createUser(utilisateur: object) {
-  const response = await fetch('http://localhost:3001/users', {
+// ============ Imports ===========
+
+import type { UserType } from "../types/user.type";
+
+const API_URL = import.meta.env.VITE_API_URL;
+// ============ Logic ============
+export async function createUser(user: object):Promise<UserType>  {
+  const response = await fetch(`${API_URL}/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(utilisateur),
+    body: JSON.stringify(user),
   });
 
+    if (!response.ok) {
+        throw new Error("Impossible de créer l'utilisateur");
+    }
   return response.json();
 }
 

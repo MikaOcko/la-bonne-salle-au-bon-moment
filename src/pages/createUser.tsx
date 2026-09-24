@@ -1,21 +1,21 @@
+// ============ Imports ============
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createUser as createUserService } from "../services/user.service";
+import { createUser } from "../services/user.service";
+import { useNavigate } from 'react-router';
+import Button from "../components/button";
 
+// =========== Logic ============
 // Schéma de validation
 const utilisateurSchema = z.object({
   role: z.enum(["Admin", "Formateur"], {
     message: "Veuillez sélectionner un utilisateur",
   }),
 
-  nom: z
+  name: z
     .string()
     .min(2, "Le nom doit contenir au moins 2 caractères"),
-
-  prenom: z
-    .string()
-    .min(2, "Le prénom doit contenir au moins 2 caractères"),
 
   email: z
     .string()
@@ -30,138 +30,94 @@ const utilisateurSchema = z.object({
 type UserForm = z.infer<typeof utilisateurSchema>;
 
 function CreateUserForm() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UserForm>({
-    resolver: zodResolver(utilisateurSchema),
-  });
+	const navigate = useNavigate();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<UserForm>({
+		resolver: zodResolver(utilisateurSchema),
+	});
 
-  // Fonction appelée lors de la validation du formulaire
- 
-  async function onSubmit(data: UserForm) {
-    await createUserService(data);
-    reset();
-}
+	// Fonction appelée lors de la validation du formulaire
+	
+	async function onSubmit(data: UserForm) {
+		await createUser(data);
+		reset();
+	}
 
   return (
-    <div className="bg-gray-400 p-6 rounded-lg">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <>
+		<header>
+            <div>
+                <Button description="retour" onClick={() => navigate('/dashboardAdmin')} />
+            </div>
+        </header>
+		<main>
+			<div className='container'>
+                <h2>Ajouter un nouvel utilisateur</h2>
 
-        {/* Type utilisateur */}
-        <div className="mb-4">
-          <label className="block mb-2">
-            Type utilisateur
-          </label>
+				<form onSubmit={handleSubmit(onSubmit)}>
 
-          <select
-            {...register("role")}
-            className="border border-gray-300 p-2 rounded"
-          >
-            <option value="">Sélectionnez un utilisateur</option>
-            <option value="Admin">Admin</option>
-            <option value="Formateur">Formateur</option>
-          </select>
+					{/* Type utilisateur */}
+					<div>
+						<label>
+							Type utilisateur
+						</label>
 
-          {errors.role && (
-            <p className="text-red-600">
-              {errors.role.message}
-            </p>
-          )}
-        </div>
+						<select {...register("role")}>
+							<option value="">Sélectionnez un utilisateur</option>
+							<option value="Admin">Admin</option>
+							<option value="Formateur">Formateur</option>
+						</select>
 
-        {/* Nom */}
-        <div className="mb-4">
-          <label className="block mb-2">
-            Nom
-          </label>
+						{errors.role && (<p>{errors.role.message}</p>)}
+					</div>
 
-          <input
-            type="text"
-            placeholder="Nom"
-            {...register("nom")}
-            className="border border-gray-300 p-2 rounded"
-          />
+					{/* Nom */}
+					<div>
+						<label>
+							Nom
+						</label>
 
-          {errors.nom && (
-            <p className="text-red-600">
-              {errors.nom.message}
-            </p>
-          )}
-        </div>
+						<input type="text" placeholder="Nom Prénom" {...register("name")}/>
 
-        {/* Prénom */}
-        <div className="mb-4">
-          <label className="block mb-2">
-            Prénom
-          </label>
+						{errors.name && (<p>{errors.name.message}</p>)}
+					</div>
 
-          <input
-            type="text"
-            placeholder="Prénom"
-            {...register("prenom")}
-            className="border border-gray-300 p-2 rounded"
-          />
+					{/* Email */}
+					<div>
+						<label>
+							Email
+						</label>
 
-          {errors.prenom && (
-            <p className="text-red-600">
-              {errors.prenom.message}
-            </p>
-          )}
-        </div>
+						<input type="email" placeholder="Email" {...register("email")}/>
 
-        {/* Email */}
-        <div className="mb-4">
-          <label className="block mb-2">
-            Email
-          </label>
+						{errors.email && (<p>{errors.email.message}</p>)}
+					</div>
 
-          <input
-            type="email"
-            placeholder="Email"
-            {...register("email")}
-            className="border border-gray-300 p-2 rounded"
-          />
+					{/* Mot de passe */}
+					<div >
+						<label>
+							Mot de passe
+						</label>
 
-          {errors.email && (
-            <p className="text-red-600">
-              {errors.email.message}
-            </p>
-          )}
-        </div>
+						<input type="password" placeholder="Mot de passe" {...register("password")}/>
 
-        {/* Mot de passe */}
-        <div className="mb-4">
-          <label className="block mb-2">
-            Mot de passe
-          </label>
+						{errors.password && (<p>{errors.password.message}</p>)}
+					</div>
 
-          <input
-            type="password"
-            placeholder="Mot de passe"
-            {...register("password")}
-            className="border border-gray-300 p-2 rounded"
-          />
+					{/* Bouton */}
+					<button type="submit">Valider</button>
+                    {/* <p>{message && <p>{message}</p>} */}
 
-          {errors.password && (
-            <p className="text-red-600">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-
-        {/* Bouton */}
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Valider
-        </button>
-
-      </form>
-    </div>
+				</form>
+			
+			</div>
+		</main>
+      
+	</>
   );
 }
 
